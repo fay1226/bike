@@ -1,5 +1,7 @@
 package com.fay.bike.base.utils;
 
+import com.fay.bike.base.enums.RegexEnum;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +18,7 @@ public class CheckUtil {
      * 验证手机号格式
      */
     public static void checkPhone(String phone) {
-        checkPhone(phone, RegexUtil.RegexEnum.PHONE_REGEX.getRegex());
+        checkPhone(phone, RegexEnum.PHONE.getRegex());
     }
 
     /**
