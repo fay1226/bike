@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="LOG_HOME" value="logs/bike-web-app" />
+
+	<!-- 控制台输出 -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d %t %-5p %c:%L :: %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 按照每天生成日志文件 -->
+	<appender name="project"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 正在记录的日志文件的路径及文件名 -->
+		<File>${LOG_HOME}/project.log</File>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d %t %-5p %c:%L :: %m%n</pattern>
+			<!-- %d{yyyy-MM-dd HH:mm:ss,SSS} %thread %-5level %C:%L :: %m%n -->
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<fileNamePattern>${LOG_HOME}/project.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>7</MaxHistory>
+		</rollingPolicy>
+		<!--日志文件最大的大小 -->
+		<!-- <triggeringPolicy -->
+		<!-- class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> -->
+		<!-- <MaxFileSize>100MB</MaxFileSize> -->
+		<!-- </triggeringPolicy> -->
+	</appender>
+
+	<logger name="com.fay" additivity="false" level="INFO">
+		<appender-ref ref="project" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="org.springframework.web.servlet.PageNotFound" additivity="false" level="ERROR">
+		<appender-ref ref="project" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="com.alibaba.dubbo" additivity="false" level="WARN">
+		<appender-ref ref="project" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="fay" additivity="false" level="info">
+		<appender-ref ref="project" />
+	</logger>
+	<root level="info">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="project" />
+	</root>
+</configuration>

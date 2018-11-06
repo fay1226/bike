@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * @date 2018/11/2 11:22
  */
 public class CheckUtil {
-    public CheckUtil() {}
+    private CheckUtil() {}
 
     /**
      * 验证手机号格式
@@ -28,7 +28,8 @@ public class CheckUtil {
         if (StringUtil.isEmpty(phone)) {
             throw new IllegalArgumentException("手机号不能为空");
         }
-        if (phone.trim().length() != 11) {
+        int length = 11;
+        if (phone.trim().length() != length) {
             throw new IllegalArgumentException("手机号码应为11位数");
         }
         checkByRegex(phone, regex, "手机号格式不正确");

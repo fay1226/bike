@@ -22,15 +22,15 @@ public class Result<T> {
     private String desMsg;
 
     public Result<T> success(T data) {
-        return success(data, BaseCode.SUCCESS);
+        return success(data, BaseCode.SUCCESS.getCode());
     }
 
-    public Result<T> success(T data, BaseCode code) {
+    public Result<T> success(T data, Integer code) {
         return success(data, code, null);
     }
 
-    public Result<T> success(T data, BaseCode code, String desMsg) {
-        this.code = code.getCode();
+    public Result<T> success(T data, Integer code, String desMsg) {
+        this.code = code;
         this.success = true;
         this.data = data;
         this.desMsg = desMsg;
@@ -38,15 +38,15 @@ public class Result<T> {
     }
 
     public Result<T> fail(String desMsg) {
-        return fail(BaseCode.FAIL, desMsg);
+        return fail(BaseCode.FAIL.getCode(), desMsg);
     }
 
-    public Result<T> fail(BaseCode code, String desMsg) {
+    public Result<T> fail(Integer code, String desMsg) {
         return fail(null, code, desMsg);
     }
 
-    public Result<T> fail(T data, BaseCode code, String desMsg) {
-        this.code = code.getCode();
+    public Result<T> fail(T data, Integer code, String desMsg) {
+        this.code = code;
         this.success = false;
         this.data = data;
         this.desMsg = desMsg;

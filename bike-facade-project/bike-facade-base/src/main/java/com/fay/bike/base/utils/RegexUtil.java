@@ -6,6 +6,6 @@ package com.fay.bike.base.utils;
  * @date 2018/11/2 11:38
  */
 public class RegexUtil {
-    public RegexUtil() {}
+    private RegexUtil() {}
 
 }

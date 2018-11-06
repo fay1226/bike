@@ -1,0 +1,15 @@
+.metadata/
+.idea/
+/**/target/
+/**/tmp/
+/**/logs/
+/**/out/
+/**/.project
+/**/.classpath
+/**/.settings
+/**/*.iml
+/*/**/.gitignore
+/*.ipr
+/*.iws
+*.log
+*.class

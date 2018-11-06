@@ -10,7 +10,7 @@ import org.slf4j.Logger;
  * @date 2018/11/1 10:28
  */
 public class ExceptionUtil {
-    public ExceptionUtil() {}
+    private ExceptionUtil() {}
 
     public static String getMessage(Exception e) {
         StringWriter out = new StringWriter();

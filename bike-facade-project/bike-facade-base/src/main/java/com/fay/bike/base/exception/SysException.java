@@ -20,7 +20,7 @@ public class SysException extends RuntimeException {
         this.errorMsg = errorMsg;
     }
 
-    public SysException(Integer code, String errorMsg){
+    public SysException(String errorMsg, Integer code){
         this(errorMsg);
         this.code = code;
     }
@@ -37,14 +37,14 @@ public class SysException extends RuntimeException {
     }
 
     public Integer getCode() {
-        return this.code;
+        return code;
     }
     public String getErrorMsg() {
-        return this.errorMsg;
+        return errorMsg;
     }
 
     @Override
     public String toString() {
-        return this.code + ":" + this.errorMsg;
+        return code + ":" + errorMsg;
     }
 }

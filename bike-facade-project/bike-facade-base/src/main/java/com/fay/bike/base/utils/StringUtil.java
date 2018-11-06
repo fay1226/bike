@@ -19,9 +19,10 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 public class StringUtil {
-    public StringUtil() {}
+    private StringUtil() {}
 
     private static final String CHAR_CODE = "UTF-8";
+    private static final String LOG_TAG = "e = {}";
 
     /**url编码，默认编码utf-8*/
     public static String urlEncode(String str) {
@@ -36,7 +37,7 @@ public class StringUtil {
         try {
             return URLEncoder.encode(str, charsetName);
         } catch (UnsupportedEncodingException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return "";
     }
@@ -54,7 +55,7 @@ public class StringUtil {
         try {
             return URLDecoder.decode(str, charsetName);
         } catch (UnsupportedEncodingException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return "";
     }
@@ -120,7 +121,7 @@ public class StringUtil {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return "";
     }
@@ -147,7 +148,7 @@ public class StringUtil {
             }
             return buf.toString().substring(8, 24);
         } catch (NoSuchAlgorithmException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return "";
     }
@@ -203,7 +204,7 @@ public class StringUtil {
         try {
             tmp = new String(str.getBytes(oldCode), newCode);
         } catch (UnsupportedEncodingException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return tmp;
     }
@@ -385,7 +386,7 @@ public class StringUtil {
     /**
      * 首字母大写
      */
-    public static String fristLowerCase(String str) {
+    public static String firstLowerCase(String str) {
         return str == null ? null : str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
@@ -411,7 +412,7 @@ public class StringUtil {
             new URL(str);
             return true;
         } catch (MalformedURLException e) {
-            log.info("e = {}", e);
+            log.info(LOG_TAG, e);
         }
         return false;
     }
