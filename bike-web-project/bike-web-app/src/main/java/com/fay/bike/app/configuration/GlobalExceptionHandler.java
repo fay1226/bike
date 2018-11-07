@@ -22,18 +22,18 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public Result handlerException(Exception e) {
+    public Result<Exception> handlerException(Exception e) {
 
         Result<Exception> result = new Result<>();
 
         //自定义异常
         if (e instanceof SysException) {
             SysException exception = (SysException) e;
-            log.error(exception.getErrorMsg());
+            log.info(exception.getErrorMsg());
             return result.fail(exception.getCode(), exception.getErrorMsg());
         }
         if (e instanceof BadCredentialsException) {
-            log.error(e.getMessage());
+            log.info(e.getMessage());
             return result.fail(BaseCode.NO_AUTHENTION.getCode(), "无权限访问");
         }
         //MethodArgumentNotValidException方法参数校验异常

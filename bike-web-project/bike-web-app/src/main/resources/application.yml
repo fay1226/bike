@@ -3,12 +3,12 @@ server:
   port: 10001
 application:
   name: bike-web-app
+logging:
+  config: classpath:logback-spring.xml
 dubbo:
   application:
     name: bike-web-app
   organization: fay
-logging:
-  config: classpath:logback-spring.xml
 bootstrap:
   main:
     class: com.fay.bike.app.BikeWebAppApplication
