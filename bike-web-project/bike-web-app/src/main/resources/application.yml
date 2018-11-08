@@ -1,27 +1,10 @@
----
-server:
-  port: 10001
-application:
-  name: bike-web-app
-logging:
-  config: classpath:logback-spring.xml
-dubbo:
+#启用环境 prod-生产，dev-开发
+spring:
+  profiles:
+    active: dev
   application:
     name: bike-web-app
-  organization: fay
-bootstrap:
-  main:
-    class: com.fay.bike.app.BikeWebAppApplication
-  check:
-    dubbo: true
-base:
-  name: bike-web-app
-
 ---
-spring:
-  profiles: prod
-
----
-spring:
-  profiles: test
-
+#日志配置
+logging:
+  config: classpath:logback-spring.xml
