@@ -1,8 +1,8 @@
 package com.fay.bike.app.configuration;
 
 import com.fay.bike.app.system.Result;
-import com.fay.bike.base.enums.BaseCode;
-import com.fay.bike.base.exception.SysException;
+import com.fay.bike.facade.base.enums.BaseCode;
+import com.fay.bike.facade.base.exception.SysException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.ObjectError;

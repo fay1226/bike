@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fay.bike.services.user.mapper.TbUserMapper">
+    <!-- TbUser的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="tbUser" type="com.fay.bike.services.user.entity.TbUser">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="u_name" jdbcType="VARCHAR" property="uName" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+    </resultMap>
+
+    <!--获得类名为:TbUser对应的数据库表的数据总行数 -->
+    <select id="getTbUserRowCount" resultType="java.lang.Long">
+        select count(id) from tb_user
+    </select>
+
+    <!-- 获得一个TbUser对象,以参数TbUser对象中不为空的属性作为条件进行查询-->
+    <select id="queryTbUserList" parameterType="com.fay.bike.services.user.entity.TbUser" resultMap="tbUser">
+        select * from tb_user
+        <where>
+            <if test="email != null "> and tb_user.email = #{email,jdbcType=VARCHAR}</if>
+            <if test="num != null "> and tb_user.num = #{num,jdbcType=INTEGER}</if>
+            <if test="u_name != null "> and tb_user.u_name = #{uName,jdbcType=VARCHAR}</if>
+            <if test="id != null "> and tb_user.id = #{id,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+
+    <!-- 通过TbUser的id获得对应数据库中表的数据对象-->
+    <select id="selectTbUserById" parameterType="java.lang.Integer" resultMap="tbUser">
+        select * from tb_user
+        where tb_user.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 将TbUser中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertTbUser" parameterType="com.fay.bike.services.user.entity.TbUser">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="uName != null">u_name,</if>
+            <if test="num != null">num,</if>
+            <if test="email != null">email,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null"> #{id,jdbcType=INTEGER},</if>
+            <if test="uName != null"> #{u_name,jdbcType=VARCHAR},</if>
+            <if test="num != null"> #{num,jdbcType=INTEGER},</if>
+            <if test="email != null"> #{email,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <!-- 将TbUser批量插入到对应数据库的表中-->
+    <insert id="insertTbUserList" parameterType="ArrayList">
+        insert into tb_user(id,u_name,num,email) values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.id,jdbcType=INTEGER},#{item.uName,jdbcType=VARCHAR},#{item.num,jdbcType=INTEGER},#{item.email,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <!-- 通过TbUser的id将TbUser中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateTbUser" parameterType="com.fay.bike.services.user.entity.TbUser">
+        update tb_user
+        <set>
+            <if test="uName != null">
+                u_name=#{uName,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                num=#{num,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                email=#{email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id=#{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

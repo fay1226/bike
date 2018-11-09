@@ -1,6 +1,6 @@
 package com.fay.bike.app.system;
 
-import com.fay.bike.base.enums.BaseCode;
+import com.fay.bike.facade.base.enums.BaseCode;
 import lombok.Getter;
 import lombok.Setter;
 

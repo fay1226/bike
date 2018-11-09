@@ -2,11 +2,14 @@ package com.fay.bike.app.controller;
 
 import com.fay.bike.app.system.Result;
 import com.fay.bike.app.vo.IndexVo;
+import com.fay.bike.facade.user.dto.User;
+import com.fay.bike.facade.user.facade.TbUserFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/index")
 public class IndexController {
+
+    @Resource
+    private TbUserFacade tbUserFacade;
+
+    @GetMapping("/user")
+    public Result<User> getUser() {
+        User user = tbUserFacade.getUserById(1);
+        log.info("info日志测试{}", user);
+        return new Result<User>().success(user);
+    }
 
     @GetMapping("/index")
     public Result<IndexVo> index() {

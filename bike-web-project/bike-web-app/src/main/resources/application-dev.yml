@@ -1,5 +1,17 @@
-#server配置
+#Server配置
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /app
+
+#Spring数据源配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/bike
+    name: root
+    password: root
+
+#Mybatis配置
+mybatis:
+  mapper-locations: classpath*:/mapper/*Mpper.xml

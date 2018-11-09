@@ -18,8 +18,11 @@ import java.io.PrintWriter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * 白名单列表
+     */
     private static final String[] PERMIT_URLS = new String[]{
-            "/index/index","/index/test",
+            "/index/index","/index/test","index/user",
             // 静态页面无需权限
             "/js/*", "/css/*", "/img/*"
     };
@@ -28,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/app/**").hasRole("APP")
-                .antMatchers("/h5/**").hasRole("H5")
                 .antMatchers("/backend/**").hasRole("BK")
                 .anyRequest().denyAll()
                 .and().exceptionHandling().accessDeniedHandler(deniedHandler())
