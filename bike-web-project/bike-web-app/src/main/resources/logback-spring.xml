@@ -8,7 +8,7 @@
     <!-- 控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d %t %-5p %c:%L :: %m%n</pattern>
+            <pattern>【%d】%t【%-3p】%c【%L】%m%n</pattern>
         </encoder>
     </appender>
 
@@ -18,7 +18,7 @@
         <File>${LOG_PATH}/app-project.log</File>
         <encoder>
             <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d %t %-3p %c:%L :: %m%n</pattern>
+            <pattern>【%d】%t【%-3p】%c【%L】%m%n</pattern>
             <!-- %d{yyyy-MM-dd HH:mm:ss,SSS} %thread %-5level %C:%L :: %m%n -->
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

@@ -6,7 +6,6 @@ import com.fay.bike.facade.user.dto.User;
 import com.fay.bike.facade.user.facade.TbUserFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -20,18 +19,20 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/index")
 public class IndexController {
 
-    @Resource
-    private TbUserFacade tbUserFacade;
-
-    @GetMapping("/user")
-    public Result<User> getUser() {
-        User user = tbUserFacade.getUserById(1);
-        log.info("info日志测试{}", user);
-        return new Result<User>().success(user);
-    }
+//    @Resource
+//    private TbUserFacade tbUserFacade;
+//
+//    @GetMapping("/user")
+//    public Result<User> getUser() {
+//        User user = tbUserFacade.getUserById(1);
+////        User user = new User();
+//        user.setUName("fay");
+//        user.setNum(19);
+//        log.info("info日志测试{}", user);
+//        return new Result<User>().success(user);
+//    }
 
     @GetMapping("/index")
     public Result<IndexVo> index() {
@@ -42,7 +43,7 @@ public class IndexController {
         return new Result<IndexVo>().success(indexVo);
     }
 
-    @GetMapping("/test")
+    @GetMapping("/")
     public Result<List> test() {
         List<IndexVo> list = new ArrayList<>();
         IndexVo indexVo = new IndexVo();

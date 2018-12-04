@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 白名单列表
      */
     private static final String[] PERMIT_URLS = new String[]{
-            "/index/index","/index/test","index/user",
+            "/index","/test","/user","/**",
             // 静态页面无需权限
             "/js/*", "/css/*", "/img/*"
     };
@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().denyAll()
                 .and().exceptionHandling().accessDeniedHandler(deniedHandler())
                 .and().formLogin().disable().csrf().disable().httpBasic();
+        http.sessionManagement().invalidSessionUrl("/index");
+        http.sessionManagement().maximumSessions(1).expiredUrl("/index");
     }
 
     @Override
