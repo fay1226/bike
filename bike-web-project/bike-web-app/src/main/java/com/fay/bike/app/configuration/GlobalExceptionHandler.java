@@ -1,9 +1,10 @@
 package com.fay.bike.app.configuration;
 
-import com.fay.bike.app.system.Result;
-import com.fay.bike.facade.base.enums.BaseCode;
-import com.fay.bike.facade.base.exception.SysException;
+import com.fay.bike.base.enums.BaseCode;
+import com.fay.bike.base.exception.SysException;
+import com.fay.bike.base.vo.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,11 +31,17 @@ public class GlobalExceptionHandler {
         if (e instanceof SysException) {
             SysException exception = (SysException) e;
             log.info(exception.getErrorMsg());
-            return result.fail(exception.getCode(), exception.getErrorMsg());
+            return result.fail(exception, exception.getErrorMsg());
         }
+        //权限不足
         if (e instanceof BadCredentialsException) {
             log.info(e.getMessage());
-            return result.fail(BaseCode.NO_AUTHENTION.getCode(), "无权限访问");
+            return result.fail(BaseCode.NO_AUTHENTION);
+        }
+        //类型转换异常
+        if (e instanceof TypeMismatchException) {
+            log.warn(e.getMessage());
+            return result.fail(BaseCode.PARAM_ERROR);
         }
         //MethodArgumentNotValidException方法参数校验异常
         if (e instanceof MethodArgumentNotValidException) {
@@ -63,9 +70,9 @@ public class GlobalExceptionHandler {
                 log.warn(e.getMessage());
                 return result.fail(BaseCode.PARAM_ERROR.getCode(), "不支持的特殊字符");
             }
-            return result.fail(BaseCode.PARAM_ERROR.getCode(), e.getMessage());
+            return result.fail(BaseCode.SYSTEM_ERROR);
         }
         log.error("系统错误", e);
-        return result.fail("系统错误");
+        return result.fail(BaseCode.SYSTEM_ERROR);
     }
 }

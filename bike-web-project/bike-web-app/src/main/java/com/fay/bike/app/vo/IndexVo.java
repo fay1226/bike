@@ -1,6 +1,6 @@
 package com.fay.bike.app.vo;
 
-import com.fay.bike.facade.base.vo.BaseVo;
+import com.fay.bike.base.vo.BaseVo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

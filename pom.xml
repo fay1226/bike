@@ -6,7 +6,7 @@
     <!--POM 版本-->
     <modelVersion>4.0.0</modelVersion>
 
-    <!--POM 类型-->
+    <!--打包方式-->
     <packaging>pom</packaging>
 
     <!--POM-->
@@ -48,8 +48,9 @@
         <version>2.1.0.RELEASE</version>
         <relativePath/>
     </parent>
-    
+
     <dependencies>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -64,39 +65,9 @@
         </dependency>
 
         <dependency>
-            <artifactId>jedis</artifactId>
-            <groupId>redis.clients</groupId>
-            <version>2.9.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.2.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>27.0-jre</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.51</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!--热部署-->
@@ -109,6 +80,7 @@
 
     <!--子模块-->
     <modules>
+        <module>bike-common-project</module>
         <module>bike-web-project</module>
         <module>bike-facade-project</module>
         <module>bike-services-project</module>

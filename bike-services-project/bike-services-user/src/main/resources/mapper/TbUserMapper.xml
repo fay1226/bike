@@ -26,7 +26,7 @@
     </select>
 
     <!-- 通过TbUser的id获得对应数据库中表的数据对象-->
-    <select id="selectTbUserById" parameterType="java.lang.Integer" resultMap="tbUser">
+    <select id="getTbUserById" parameterType="java.lang.Integer" resultMap="tbUser">
         select * from tb_user
         where tb_user.id = #{id,jdbcType=INTEGER}
     </select>

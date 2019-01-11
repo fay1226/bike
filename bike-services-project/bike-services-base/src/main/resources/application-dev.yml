@@ -1,0 +1,21 @@
+#Server配置
+server:
+  port: 1880
+
+spring:
+  #Spring数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/bike?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+
+  #热部署是否启动，默认true
+  devtools:
+    add-properties: true
+    livereload:
+      port: 35727
+
+#Mybatis配置
+mybatis:
+  mapper-locations: classpath*:/mapper/*Mapper.xml

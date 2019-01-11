@@ -1,6 +1,6 @@
 package com.fay.bike.services.user.service;
 
-import com.fay.bike.facade.base.utils.BeanUtil;
+import com.fay.bike.base.utils.BeanUtil;
 import com.fay.bike.facade.user.dto.User;
 import com.fay.bike.services.user.entity.TbUser;
 import com.fay.bike.services.user.mapper.TbUserMapper;

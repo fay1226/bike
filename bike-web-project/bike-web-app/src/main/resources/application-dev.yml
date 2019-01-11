@@ -6,14 +6,9 @@ server:
   error:
     path: /error
 
-#Spring数据源配置
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bike?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
-    name: root
-    password: root
-
-#Mybatis配置
-mybatis:
-  mapper-locations: classpath*:/mapper/*Mpper.xml
+  #热部署是否启动，默认true
+  devtools:
+    add-properties: true
+    livereload:
+      port: 35726

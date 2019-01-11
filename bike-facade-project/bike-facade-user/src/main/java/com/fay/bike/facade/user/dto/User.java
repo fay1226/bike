@@ -1,6 +1,6 @@
 package com.fay.bike.facade.user.dto;
 
-import com.fay.bike.facade.base.vo.BaseVo;
+import com.fay.bike.base.vo.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 

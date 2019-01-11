@@ -4,7 +4,7 @@
     <!--<springProfile name="test,dev"/>-->
 
     <!--自定义日志保存目录参数-->
-    <property name="LOG_PATH" value="logs/bike-web-backend"/>
+    <property name="LOG_PATH" value="logs/bike-services-base"/>
 
     <!--自定义日志输出格式参数 %d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
     <property name="LOG_PATTERN" value="【%d】%t【%-3p】%c【%L】%m%n"/>
@@ -25,11 +25,11 @@
             <charset>UTF-8</charset>
         </encoder>
         <!-- 输出到指定文件 -->
-        <File>${LOG_PATH}/bk-project.log</File>
+        <File>${LOG_PATH}/services-project.log</File>
         <!--历史日志处理-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
-            <fileNamePattern>${LOG_PATH}/bk-project.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/services-project.log.%d{yyyy-MM-dd}</fileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -47,7 +47,7 @@
             <charset>UTF-8</charset>
         </encoder>
         <!-- 输出到指定文件 -->
-        <File>${LOG_PATH}/bk-project-error.log</File>
+        <File>${LOG_PATH}/services-project-error.log</File>
         <!--日志级别过滤-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -57,7 +57,7 @@
         <!--历史日志处理-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
-            <fileNamePattern>${LOG_PATH}/bk-project-error.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/services-project-error.log.%d{yyyy-MM-dd}</fileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -82,6 +82,12 @@
     <!--404日志：打印 ERROR日志-->
     <logger name="org.springframework.web.servlet.PageNotFound" additivity="false" level="ERROR">
         <appender-ref ref="FILE_OUT"/>
+        <appender-ref ref="STD_OUT"/>
+    </logger>
+
+    <!--dubbo日志：打印 WARN，ERROR日志-->
+    <logger name="com.alibaba.dubbo" additivity="false" level="WARN">
+        <appender-ref ref="FILE_OUT_ERROR"/>
         <appender-ref ref="STD_OUT"/>
     </logger>
 

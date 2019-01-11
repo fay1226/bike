@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bike-facade-base</module>
         <module>bike-facade-user</module>
     </modules>
 

@@ -3,24 +3,30 @@
     <!-- 测试环境 + 开发环境，多个使用逗号隔开 -->
     <!--<springProfile name="test,dev"/>-->
 
+    <!--自定义日志保存目录参数-->
     <property name="LOG_PATH" value="logs/bike-web-app"/>
 
+    <!--自定义日志输出格式参数 %d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+    <property name="LOG_PATTERN" value="【%d】%t【%-3p】%c【%L】%m%n"/>
+
     <!-- 控制台输出 -->
-    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STD_OUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>【%d】%t【%-3p】%c【%L】%m%n</pattern>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-    <!-- 按照每天生成日志文件 -->
-    <appender name="project" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 正在记录的日志文件的路径及文件名 -->
-        <File>${LOG_PATH}/app-project.log</File>
+    <!-- 日志文件（不过滤日志级别） 按照每天生成日志文件 -->
+    <appender name="FILE_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 指定日志输出格式 -->
         <encoder>
-            <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>【%d】%t【%-3p】%c【%L】%m%n</pattern>
-            <!-- %d{yyyy-MM-dd HH:mm:ss,SSS} %thread %-5level %C:%L :: %m%n -->
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
+        <!-- 输出到指定文件 -->
+        <File>${LOG_PATH}/app-project.log</File>
+        <!--历史日志处理-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
             <fileNamePattern>${LOG_PATH}/app-project.log.%d{yyyy-MM-dd}</fileNamePattern>
@@ -33,20 +39,61 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.fay.*" additivity="false" level="info">
-        <appender-ref ref="project"/>
-        <appender-ref ref="stdout"/>
+    <!-- ERROR日志文件 按照每天生成日志文件 -->
+    <appender name="FILE_OUT_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 指定日志输出格式 -->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 输出到指定文件 -->
+        <File>${LOG_PATH}/app-project-error.log</File>
+        <!--日志级别过滤-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--历史日志处理-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <fileNamePattern>${LOG_PATH}/app-project-error.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <!-- 日志文件最大的大小 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>50MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--日志级别：TRACE < DEBUG < INFO < WARN < ERROR-->
+    <!--项目日志：打印 INFO，WARN，ERROR日志-->
+    <logger name="com.fay.bike.*" additivity="false" level="INFO">
+        <appender-ref ref="FILE_OUT"/>
+        <appender-ref ref="STD_OUT"/>
     </logger>
-    <logger name="org.springframework.web.servlet.PageNotFound" additivity="false" level="error">
-        <appender-ref ref="project"/>
-        <appender-ref ref="stdout"/>
+
+    <!--数据库SQL日志：打印 DEBUG，INFO，WARN，ERROR日志-->
+    <logger name="com.fay.bike.services" additivity="false" level="DEBUG">
+        <appender-ref ref="STD_OUT"/>
     </logger>
-    <logger name="com.alibaba.dubbo" additivity="false" level="warn">
-        <appender-ref ref="project"/>
-        <appender-ref ref="stdout"/>
+
+    <!--404日志：打印 ERROR日志-->
+    <logger name="org.springframework.web.servlet.PageNotFound" additivity="false" level="ERROR">
+        <appender-ref ref="FILE_OUT"/>
+        <appender-ref ref="STD_OUT"/>
     </logger>
-    <root level="info">
-        <appender-ref ref="project"/>
-        <appender-ref ref="stdout"/>
+
+    <!--dubbo日志：打印 WARN，ERROR日志-->
+    <logger name="com.alibaba.dubbo" additivity="false" level="WARN">
+        <appender-ref ref="FILE_OUT_ERROR"/>
+        <appender-ref ref="STD_OUT"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="FILE_OUT_ERROR"/>
+        <appender-ref ref="FILE_OUT"/>
+        <appender-ref ref="STD_OUT"/>
     </root>
 </configuration>

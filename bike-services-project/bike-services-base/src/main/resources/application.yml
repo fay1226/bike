@@ -1,0 +1,10 @@
+#启用环境 prod-生产，dev-开发
+spring:
+  profiles:
+    active: dev
+  application:
+    name: bike-web-app
+---
+#日志配置
+logging:
+  config: classpath:logback-spring.xml
